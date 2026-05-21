@@ -1,0 +1,35 @@
+# Results and Scoring Configuration
+
+models:
+  - baseline
+  - rag
+  - finetuned
+
+benchmark:
+  path: data/benchmark/cybersecurity_ai_complete_benchmark_test_set_v1.jsonl
+  total_cases: 120
+
+raw_outputs:
+  baseline: data/results/baseline_outputs_v1.jsonl
+  rag: data/results/rag_outputs_v1.jsonl
+  finetuned: data/results/finetuned_outputs_v1.jsonl
+
+manual_scoring:
+  baseline: data/results/baseline_manual_scoring_sheet_v1.csv
+  rag: data/results/rag_manual_scoring_sheet_v1.csv
+  finetuned: data/results/finetuned_manual_scoring_sheet_v1.csv
+
+summaries:
+  combined: data/results/combined_scored_results_v1.csv
+  overall: data/results/overall_model_summary_v1.csv
+  by_category: data/results/category_model_summary_v1.csv
+
+rubric:
+  min_score: 1
+  max_score: 5
+  same_rubric_for_all_models: true
+
+rules:
+  same_benchmark_for_all_models: true
+  no_training_on_benchmark: true
+  raw_outputs_are_immutable: true
