@@ -1,0 +1,39 @@
+# Secrets and credentials
+.env
+*.env
+*.key
+*.pem
+secrets.json
+config.local.json
+credentials.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# macOS / system files
+.DS_Store
+Thumbs.db
+
+# Local raw RAG corpus
+rag_corpus/
+local_rag_corpus/
+anythingllm_exports/
+
+# Local model/provider outputs before review
+data/results/*.jsonl
+data/results/*.csv
+
+# Logs
+*.log
+logs/
+
+# Large archives
+*.zip
+*.tar
+*.tar.gz
