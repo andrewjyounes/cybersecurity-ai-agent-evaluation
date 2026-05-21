@@ -1,0 +1,23 @@
+# Baseline Evaluation Configuration Template
+
+model:
+  model_type: baseline
+  provider: tinker_or_openai_compatible
+  model_name: qwen3.5-35b-a3b
+  temperature: 0.0
+  max_tokens: 900
+
+benchmark:
+  input_path: data/benchmark/cybersecurity_ai_complete_benchmark_test_set_v1.jsonl
+  split: held_out_test
+  total_cases: 120
+
+outputs:
+  baseline_output_path: data/results/baseline_outputs_v1.jsonl
+  baseline_scoring_sheet: data/results/baseline_manual_scoring_sheet_v1.csv
+
+rules:
+  use_benchmark_for_training: false
+  use_benchmark_for_prompt_optimization_after_failures: false
+  keep_temperature_constant: true
+  keep_system_prompt_constant: true
