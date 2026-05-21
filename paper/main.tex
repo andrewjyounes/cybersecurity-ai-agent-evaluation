@@ -1,0 +1,226 @@
+\documentclass[10pt,conference]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{multirow}
+
+\title{Evaluating Baseline, RAG-Enhanced, and Fine-Tuned LLMs for Cybersecurity Agent Tasks}
+
+\author{
+\IEEEauthorblockN{Andrew Younes}
+\IEEEauthorblockA{
+Independent Research Project\\
+\texttt{andrewjyounes@gmail.com}
+}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Large language models are increasingly being used as cybersecurity assistants, but it remains unclear which adaptation strategy produces the most reliable performance for defensive cybersecurity tasks. This paper compares three versions of the same base model: a Baseline Model, a RAG-Enhanced Model, and a Fine-Tuned Model. The systems are evaluated on a held-out benchmark covering cybersecurity knowledge, alert classification, MITRE ATT\&CK mapping, incident response, hallucination resistance, and prompt-injection resistance. The study tests whether retrieval augmentation and supervised fine-tuning improve reliability over a baseline model while controlling for the underlying model family. Results will be reported using a shared 1--5 scoring rubric and category-level comparison tables.
+\end{abstract}
+
+\begin{IEEEkeywords}
+large language models, cybersecurity, retrieval-augmented generation, fine-tuning, prompt injection, hallucination, MITRE ATT\&CK, incident response
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+Large language models (LLMs) are increasingly being applied to cybersecurity tasks such as alert triage, incident response support, vulnerability explanation, and adversary behavior mapping. However, cybersecurity is a high-stakes domain where hallucinated claims, incorrect classifications, and prompt-injection failures can reduce trust in AI-assisted workflows. This creates a need for controlled evaluations of how different LLM adaptation strategies affect reliability in defensive cybersecurity tasks.
+
+This paper evaluates three systems built around the same base model: a Baseline Model, a RAG-Enhanced Model, and a Fine-Tuned Model. The Baseline Model serves as the control condition. The RAG-Enhanced Model adds access to a curated cybersecurity knowledge corpus. The Fine-Tuned Model uses supervised cybersecurity examples to teach structured defensive analysis behavior.
+
+The central research question is:
+
+\begin{quote}
+How do a Baseline Model, RAG-Enhanced Model, and Fine-Tuned Model using the same base LLM compare on SOC-style cybersecurity tasks involving cybersecurity knowledge, alert classification, MITRE ATT\&CK mapping, incident response, hallucination resistance, and prompt-injection resistance?
+\end{quote}
+
+The study hypothesizes that the RAG-Enhanced Model will perform best on knowledge-grounded and verification-heavy tasks, while the Fine-Tuned Model will perform best on structured classification and response-formatting tasks. The broader expectation is that the strongest cybersecurity agent may require a hybrid approach combining retrieval, fine-tuning, and strong baseline instruction design.
+
+\section{Background and Related Work}
+
+\subsection{LLMs for Cybersecurity}
+
+LLMs can support defensive cybersecurity workflows by summarizing alerts, explaining vulnerabilities, mapping observed behaviors to known techniques, and recommending incident response actions. However, cybersecurity evaluations must account for reliability, source verification, safe uncertainty, and adversarial robustness.
+
+\subsection{Baseline Models}
+
+The Baseline Model represents the base LLM evaluated with a fixed cybersecurity task prompt and output schema. This condition measures what the model can do without retrieval or supervised fine-tuning.
+
+\subsection{Retrieval-Augmented Generation}
+
+Retrieval-augmented generation (RAG) connects an LLM to an external document corpus. In this project, the RAG-Enhanced Model uses authoritative cybersecurity sources such as NIST, MITRE ATT\&CK, OWASP, CISA, NVD, and CWE. RAG is expected to improve factual grounding and reduce unsupported claims.
+
+\subsection{Fine-Tuning}
+
+Supervised fine-tuning adapts the model using labeled examples. In this project, fine-tuning is used to teach structured defensive cybersecurity behavior, including classification, severity assessment, MITRE mapping, response planning, and uncertainty handling.
+
+\subsection{Cybersecurity Agent Evaluation}
+
+The benchmark is designed around SOC-style tasks and AI-security failure modes, including hallucination and prompt-injection resistance. The evaluation does not attempt to automate offensive activity. It focuses on defensive analysis quality and model reliability.
+
+\section{Methodology}
+
+\subsection{Experimental Design}
+
+The study compares three systems:
+
+\begin{enumerate}
+    \item \textbf{Baseline Model}: the base LLM with a fixed task prompt and output schema.
+    \item \textbf{RAG-Enhanced Model}: the same base LLM connected to a curated cybersecurity corpus.
+    \item \textbf{Fine-Tuned Model}: the same base LLM fine-tuned on supervised cybersecurity examples.
+\end{enumerate}
+
+The base model, benchmark, scoring rubric, and output expectations are kept as consistent as possible across systems. The final benchmark is held out from both fine-tuning and RAG corpus construction.
+
+\subsection{Benchmark Categories}
+
+The benchmark contains six categories:
+
+\begin{enumerate}
+    \item Cybersecurity Knowledge
+    \item Alert Classification
+    \item MITRE ATT\&CK Mapping
+    \item Incident Response
+    \item Hallucination Resistance
+    \item Prompt-Injection Resistance
+\end{enumerate}
+
+Each category contains 20 held-out test cases, for a total of 120 benchmark cases.
+
+\begin{table}[h]
+\centering
+\caption{Benchmark Category Distribution}
+\label{tab:benchmark_distribution}
+\begin{tabular}{lr}
+\toprule
+\textbf{Category} & \textbf{Cases} \\
+\midrule
+Cybersecurity Knowledge & 20 \\
+Alert Classification & 20 \\
+MITRE ATT\&CK Mapping & 20 \\
+Incident Response & 20 \\
+Hallucination Resistance & 20 \\
+Prompt-Injection Resistance & 20 \\
+\midrule
+Total & 120 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{RAG Corpus}
+
+The RAG corpus is designed around authoritative cybersecurity sources. It includes documents and datasets that support the benchmark categories while excluding final benchmark prompts and expected answers. Source manifests are maintained in the project repository to track source title, publisher, version/date, access date, and benchmark relevance.
+
+\subsection{Fine-Tuning Dataset}
+
+The fine-tuning dataset contains supervised defensive cybersecurity examples. The dataset is separate from the final benchmark to avoid data leakage. Training examples are designed to teach structured response behavior rather than memorization of the benchmark.
+
+\subsection{Scoring Rubric}
+
+All systems are scored using the same 1--5 rubric.
+
+\begin{table}[h]
+\centering
+\caption{Shared Scoring Rubric}
+\label{tab:scoring_rubric}
+\begin{tabular}{cl}
+\toprule
+\textbf{Score} & \textbf{Meaning} \\
+\midrule
+5 & Fully correct, complete, safe, and well-structured \\
+4 & Mostly correct with minor omissions \\
+3 & Partially correct but incomplete or weak \\
+2 & Major error, unsafe framing, or poor reasoning \\
+1 & Incorrect, fabricated, unsafe, or follows malicious instructions \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Data Leakage Controls}
+
+The final benchmark is excluded from the fine-tuning dataset, validation dataset, and RAG corpus. The RAG system receives authoritative cybersecurity documents, not benchmark answer keys. Model prompts and evaluation settings are recorded for reproducibility.
+
+\section{Implementation}
+
+\subsection{Baseline Model Implementation}
+
+The Baseline Model is evaluated using a fixed system prompt and the held-out benchmark prompts. Outputs are saved as JSONL for later scoring.
+
+\subsection{RAG-Enhanced Model Implementation}
+
+The RAG-Enhanced Model is implemented through an AnythingLLM workspace. The workspace uses the curated cybersecurity source corpus and the same evaluation prompts as the Baseline Model. RAG outputs are saved in the same JSONL format as the baseline outputs.
+
+\subsection{Fine-Tuned Model Implementation}
+
+The Fine-Tuned Model is trained using Tinker on supervised cybersecurity examples. After fine-tuning, the model is evaluated on the same held-out benchmark prompts as the other two systems.
+
+\section{Results}
+
+This section will report results after model evaluation.
+
+\subsection{Overall Performance}
+
+\begin{table}[h]
+\centering
+\caption{Overall Mean Score by Model}
+\label{tab:overall_results}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Model} & \textbf{Cases Scored} & \textbf{Mean Score} \\
+\midrule
+Baseline Model & TBD & TBD \\
+RAG-Enhanced Model & TBD & TBD \\
+Fine-Tuned Model & TBD & TBD \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Performance by Category}
+
+\begin{table*}[t]
+\centering
+\caption{Mean Score by Category and Model}
+\label{tab:category_results}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Category} & \textbf{Baseline} & \textbf{RAG-Enhanced} & \textbf{Fine-Tuned} \\
+\midrule
+Cybersecurity Knowledge & TBD & TBD & TBD \\
+Alert Classification & TBD & TBD & TBD \\
+MITRE ATT\&CK Mapping & TBD & TBD & TBD \\
+Incident Response & TBD & TBD & TBD \\
+Hallucination Resistance & TBD & TBD & TBD \\
+Prompt-Injection Resistance & TBD & TBD & TBD \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Qualitative Error Analysis}
+
+This subsection will include examples of model successes and failures. The analysis should focus on why each adaptation strategy helped or failed in specific categories.
+
+\section{Discussion}
+
+The discussion should interpret category-level differences between the three systems. It should consider whether RAG improves factual grounding, whether fine-tuning improves structured classification, and whether either approach improves robustness against hallucination and prompt injection.
+
+\section{Limitations}
+
+Important limitations include manual scoring, limited benchmark size, dependence on one base model, potential source-corpus bias, and the challenge of generalizing from a controlled benchmark to real SOC environments.
+
+\section{Conclusion}
+
+This paper evaluates how baseline prompting, retrieval augmentation, and supervised fine-tuning affect cybersecurity agent performance. The final conclusion should identify which approach performs best overall, which categories benefit most from each adaptation strategy, and whether a hybrid architecture is likely to be the strongest path forward.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
