@@ -1,0 +1,36 @@
+# Tinker Fine-Tuning Configuration Template
+
+model:
+  base_model_name: qwen3.5-35b-a3b
+  provider: tinker
+  model_type: fine_tuned
+
+data:
+  train_path: data/sft/train.jsonl
+  validation_path: data/validation/validation.jsonl
+  held_out_benchmark_path: data/benchmark/cybersecurity_ai_complete_benchmark_test_set_v1.jsonl
+  use_benchmark_for_training: false
+
+training:
+  epochs: 1
+  learning_rate: TBD
+  batch_size: TBD
+  max_sequence_length: TBD
+  seed: 42
+
+output:
+  final_model_identifier: TBD
+  raw_outputs_path: data/results/finetuned_outputs_v1.jsonl
+  scoring_sheet_path: data/results/finetuned_manual_scoring_sheet_v1.csv
+
+tracking:
+  dataset_version: sft_v1
+  benchmark_version: benchmark_v1
+  run_date: TBD
+  notes: first controlled fine-tuning run
+
+rules:
+  defensive_only: true
+  no_api_keys_in_repo: true
+  no_training_on_benchmark: true
+  same_final_test_as_baseline_and_rag: true
