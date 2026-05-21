@@ -26,7 +26,7 @@ Both files contain the same benchmark cases in different formats.
 
 ## Benchmark Size
 
-Total cases: 120
+Total cases: **120**
 
 | Category | Cases |
 |---|---:|
@@ -53,7 +53,7 @@ Each benchmark item includes:
 
 ## Scoring
 
-Use the shared 1-5 rubric:
+Use the shared 1–5 rubric:
 
 | Score | Meaning |
 |---:|---|
@@ -71,15 +71,17 @@ Each model should answer the exact same held-out benchmark prompts:
 2. RAG-Enhanced Model
 3. Fine-Tuned Model
 
-The outputs should be saved separately under a future `data/results/` directory.
+The outputs should be saved separately under `data/results/`.
 
-Recommended future output paths:
+Recommended output paths:
 
 ```text
 data/results/baseline_outputs_v1.jsonl
 data/results/rag_outputs_v1.jsonl
 data/results/finetuned_outputs_v1.jsonl
-data/results/scored_results_v1.csv
+data/results/combined_scored_results_v1.csv
+data/results/overall_model_summary_v1.csv
+data/results/category_model_summary_v1.csv
 ```
 
 ## Notes

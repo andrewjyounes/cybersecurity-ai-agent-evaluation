@@ -31,8 +31,8 @@ The study begins with the following hypothesis:
 | System | Description | Purpose |
 |---|---|---|
 | **Baseline Model** | Base model with a fixed task prompt and output schema | Control condition |
-| **RAG-Enhanced Model** | Same model with access to a curated cybersecurity corpus | Tests the value of retrieval and grounding |
-| **Fine-Tuned Model** | Same model fine-tuned on cybersecurity examples | Tests the value of supervised specialization |
+| **RAG-Enhanced Model** | Same base model with access to a curated cybersecurity corpus | Tests the value of retrieval and source grounding |
+| **Fine-Tuned Model** | Same base model fine-tuned on cybersecurity examples | Tests the value of supervised specialization |
 
 The project is designed to isolate the effect of adaptation strategy by keeping the base model, test set, scoring rubric, and output schema as consistent as possible.
 
@@ -40,7 +40,7 @@ The project is designed to isolate the effect of adaptation strategy by keeping 
 
 ## Benchmark Categories
 
-The final benchmark focuses on six scoring categories:
+The held-out benchmark focuses on six scoring categories:
 
 1. **Cybersecurity Knowledge**
 2. **Alert Classification**
@@ -103,62 +103,87 @@ Where possible, the repository stores source manifests and download instructions
 
 ```text
 configs/
+  baseline_eval_config.yaml
   experiment_config_template.yaml
+  rag_anythingllm_config.yaml
+  results_scoring_config.yaml
+  tinker_finetuning_config.yaml
 
 data/
+  benchmark/
+    README.md
+    cybersecurity_ai_complete_benchmark_test_set_v1.csv
+    cybersecurity_ai_complete_benchmark_test_set_v1.jsonl
+  results/
+    README.md
   sft/
     sft_seed_examples_300_v1.csv
     sft_seed_examples_300_v1.jsonl
 
 docs/
+  evaluation/
+    results_and_scoring_protocol.md
+    shared_scoring_rubric.md
   references/
+    rag_download_checklist_v1.csv
+    rag_source_manifest_v1.csv
     source_download_checklist_v1.csv
+
+finetuning/
+  tinker/
+    fine_tuning_run_metadata_template.md
+    setup_guide.md
+    tinker_finetuning_checklist.md
+
+paper/
+  README.md
+  main.tex
+  references.bib
+  figures/
+  tables/
+
+rag/
+  README.md
+  anythingllm/
+    anythingllm_output_export_template.md
+    rag_build_checklist.md
+    setup_guide.md
 
 scripts/
   download/
-    source_download_notes.md
   evaluate/
-    scoring_template.md
+  finetuning/
   preprocess/
-    validate_sft_jsonl.py
-
-README.md
-```
-
-Planned future folders may include:
-
-```text
-data/benchmark/
-data/results/
-paper/
-rag/
-notebooks/
 ```
 
 ---
 
 ## Current Status
 
-This repository is in the early research-build phase.
+This repository is in the early implementation phase.
 
 Completed so far:
 
-- Research framework created
+- Research question and hypothesis defined
 - Benchmark categories selected
-- Initial source and data plan drafted
-- Starter supervised fine-tuning examples created
-- Initial GitHub project structure uploaded
+- Held-out benchmark test set added
+- RAG source manifest added
+- AnythingLLM RAG setup guide added
+- Tinker fine-tuning setup guide added
+- Baseline evaluation harness added
+- Results and scoring pipeline added
+- Conference-style paper template added
 
 Next planned steps:
 
-1. Add the complete held-out benchmark test set.
-2. Add the RAG source manifest.
+1. Download and organize the high-priority RAG corpus locally.
+2. Configure the AnythingLLM RAG workspace.
 3. Expand the supervised fine-tuning dataset.
-4. Implement baseline model evaluation.
-5. Configure the RAG-Enhanced Model.
-6. Run Tinker fine-tuning.
-7. Compare results across all three systems.
-8. Write the final paper.
+4. Convert and validate fine-tuning data in chat JSONL format.
+5. Run a small Baseline Model smoke test.
+6. Run the full benchmark across all three systems.
+7. Score outputs and generate summary tables.
+8. Complete the final paper.
 
 ---
 
@@ -173,7 +198,7 @@ The GitHub repository supports reproducibility by storing:
 - model configuration files
 - evaluation scripts
 - scoring rubrics
-- result tables
+- result-table templates
 - final paper materials
 
 ---
@@ -192,10 +217,4 @@ This project is intended for defensive cybersecurity research and evaluation. It
 
 ## Citation Note
 
-Formal citations will be added in the final paper and supporting bibliography. Source manifests are maintained in `docs/references/` to track source title, version, access date, and role in the benchmark.
-_download_checklist_v1.csv`.
-2. Put raw documents in `rag_corpus/`.
-3. Convert permitted sources into clean chunks under `data/processed/`.
-4. Build SFT examples in `data/sft/`.
-5. Run the Baseline Model, RAG-Enhanced Model, and Fine-Tuned Model on the held-out test set.
-6. Store model outputs and scores in `data/results/`.
+Formal citations will be maintained in the final paper and supporting bibliography. Source manifests in `docs/references/` track source title, version, URL, access date, and role in the benchmark.
