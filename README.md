@@ -104,7 +104,6 @@ Where possible, the repository stores source manifests and download instructions
 ```text
 configs/
   baseline_eval_config.yaml
-  experiment_config_template.yaml
   rag_anythingllm_config.yaml
   results_scoring_config.yaml
   tinker_finetuning_config.yaml
