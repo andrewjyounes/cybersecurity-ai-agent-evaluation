@@ -1,0 +1,34 @@
+# AnythingLLM RAG Configuration Template
+
+workspace:
+  name: cybersecurity-ai-rag-evaluation
+  purpose: RAG-Enhanced Model for cybersecurity benchmark evaluation
+
+model:
+  intended_base_model: qwen3.5-35b-a3b
+  provider: anythingllm_configured_provider
+  temperature: 0.0
+  max_output_tokens: 900
+
+retrieval:
+  source_policy: authoritative_cybersecurity_sources_only
+  include_benchmark_files: false
+  include_sft_training_files: false
+  suggested_retrieved_chunks: 4-8
+  citation_or_source_visibility: true
+
+corpus:
+  manifest_path: docs/references/rag_source_manifest_v1.csv
+  download_checklist_path: docs/references/rag_download_checklist_v1.csv
+  local_raw_corpus_path: rag_corpus/
+
+evaluation:
+  benchmark_path: data/benchmark/cybersecurity_ai_complete_benchmark_test_set_v1.jsonl
+  output_path: data/results/rag_outputs_v1.jsonl
+  scoring_sheet_path: data/results/rag_manual_scoring_sheet_v1.csv
+
+rules:
+  use_same_prompts_as_baseline: true
+  change_benchmark_after_testing: false
+  train_on_benchmark: false
+  upload_expected_answers_to_rag: false
