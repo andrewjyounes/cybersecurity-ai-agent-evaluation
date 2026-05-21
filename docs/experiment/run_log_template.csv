@@ -1,0 +1,4 @@
+run_id,date,system,provider,model,benchmark_file,cases_run,output_file,status,notes
+baseline_smoke_001,,baseline,OpenRouter,Qwen3.5-35B-A3B,data/benchmark/cybersecurity_ai_complete_benchmark_test_set_v1.jsonl,5,data/results/baseline_outputs_smoke_test_v1.jsonl,planned,Run after OpenRouter API key is active.
+rag_smoke_001,,rag,AnythingLLM + OpenRouter,Qwen3.5-35B-A3B,data/rag_smoke_tests/rag_smoke_tests_v1.csv,6,manual notes,planned,Run after OpenRouter API key is active and documents are attached.
+finetune_train_001,,fine_tuned,Tinker,Qwen3.5-35B-A3B or same-family selected model,not applicable,not applicable,fine-tuning metadata,planned,Do not train on benchmark.
