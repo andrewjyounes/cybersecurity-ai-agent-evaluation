@@ -1,0 +1,29 @@
+model:
+  base_model: Qwen3.5-35B-A3B
+  provider: tinker
+  temperature: 0.0
+  max_output_tokens: 800
+
+benchmark:
+  categories:
+    - Cybersecurity Knowledge
+    - Alert Classification
+    - MITRE ATT&CK Mapping
+    - Incident Response
+    - Hallucination Resistance
+    - Prompt-Injection Resistance
+  final_test_set: data/evaluation/cybersecurity_ai_complete_benchmark_test_set_v1.jsonl
+
+rag:
+  platform: AnythingLLM
+  corpus_dir: rag_corpus
+  retrieval_top_k: 5
+  chunk_size_tokens: 800
+  chunk_overlap_tokens: 100
+
+fine_tuning:
+  training_set: data/sft/sft_train.jsonl
+  validation_set: data/sft/sft_validation.jsonl
+  seed_examples: data/sft/sft_seed_examples_300_v1.jsonl
+  epochs_initial: 1
+  epochs_max: 3
