@@ -1,0 +1,13 @@
+\subsection{Experimental Design}
+
+The study compares three systems built around the same base model. The Baseline Model serves as the control condition and is evaluated without retrieval augmentation or supervised fine-tuning. The RAG-Enhanced Model uses the same base model but adds access to a curated cybersecurity source corpus. The Fine-Tuned Model uses the same base model after supervised fine-tuning on defensive cybersecurity examples.
+
+The Baseline Model is evaluated first to establish control performance. The RAG-Enhanced Model and Fine-Tuned Model are then evaluated on the same held-out benchmark prompts. This design allows the study to estimate whether retrieval augmentation or supervised fine-tuning improves performance relative to the base model while keeping the underlying model constant.
+
+To reduce data leakage, the final benchmark is excluded from the RAG corpus, fine-tuning training set, and validation set. Benchmark prompts, expected behaviors, and scoring notes are not uploaded to the RAG workspace or used during supervised fine-tuning.
+
+\subsection{Evaluation Order}
+
+The evaluation proceeds in three stages. First, the Baseline Model is evaluated on the held-out benchmark to establish control performance. Second, the RAG-Enhanced Model is evaluated on the same benchmark prompts to measure the effect of retrieval augmentation. Third, the Fine-Tuned Model is evaluated on the same benchmark prompts to measure the effect of supervised specialization. All three systems use the same base model and are scored using the same 1--5 rubric.
+
+Small smoke tests are used before final evaluation to confirm that model access, retrieval, and output-saving workflows are functioning correctly. These smoke tests are not included in the final benchmark results.
